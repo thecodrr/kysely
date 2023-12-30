@@ -1300,6 +1300,11 @@ export class DefaultQueryCompiler
     } else {
       this.append(SELECT_MODIFIER_SQL[node.modifier!])
     }
+
+    if (node.of) {
+      this.append(' of ')
+      this.compileList(node.of, ', ')
+    }
   }
 
   protected override visitCreateType(node: CreateTypeNode): void {
