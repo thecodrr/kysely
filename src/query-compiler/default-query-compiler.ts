@@ -111,6 +111,7 @@ import { CreateTriggerNode } from '../operation-node/create-trigger-node.js'
 import { DropTriggerNode } from '../operation-node/drop-trigger-node.js'
 import { TriggerEventNode } from '../operation-node/trigger-event-node.js'
 import { TriggerOrderNode } from '../operation-node/trigger-order-node.js'
+import { CastNode } from '../operation-node/cast-node.js'
 
 export class DefaultQueryCompiler
   extends OperationNodeVisitor
@@ -1566,7 +1567,7 @@ export class DefaultQueryCompiler
       this.append(' by source')
     }
   }
-  
+
   protected override visitAddIndex(node: AddIndexNode): void {
     this.append('add ')
 
@@ -1588,6 +1589,14 @@ export class DefaultQueryCompiler
       this.append(' using ')
       this.visitNode(node.using)
     }
+  }
+
+  protected override visitCast(node: CastNode): void {
+    this.append('cast(')
+    this.visitNode(node.expression)
+    this.append(' as ')
+    this.visitNode(node.dataType)
+    this.append(')')
   }
 
   protected append(str: string): void {

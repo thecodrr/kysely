@@ -96,6 +96,7 @@ import { CreateTriggerNode } from './create-trigger-node.js'
 import { DropTriggerNode } from './drop-trigger-node.js'
 import { TriggerEventNode } from './trigger-event-node.js'
 import { TriggerOrderNode } from './trigger-order-node.js'
+import { CastNode } from './cast-node.js'
 
 export abstract class OperationNodeVisitor {
   protected readonly nodeStack: OperationNode[] = []
@@ -199,6 +200,7 @@ export abstract class OperationNodeVisitor {
     TriggerEventNode: this.visitTriggerEvent.bind(this),
     TriggerOrderNode: this.visitTriggerOrder.bind(this),
     DropTriggerNode: this.visitDropTrigger.bind(this),
+    CastNode: this.visitCast.bind(this),
   })
 
   protected readonly visitNode = (node: OperationNode): void => {
@@ -310,4 +312,5 @@ export abstract class OperationNodeVisitor {
   protected abstract visitMergeQuery(node: MergeQueryNode): void
   protected abstract visitMatched(node: MatchedNode): void
   protected abstract visitAddIndex(node: AddIndexNode): void
+  protected abstract visitCast(node: CastNode): void
 }
