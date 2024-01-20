@@ -338,7 +338,7 @@ export class SchemaModule<DB> {
    */
   withSchema(schema: string): SchemaModule<DB> {
     return new SchemaModule(
-      this.#executor.withPluginAtFront(new WithSchemaPlugin(schema))
+      this.#executor.withPluginAtFront(new WithSchemaPlugin(schema)),
     )
   }
 }
