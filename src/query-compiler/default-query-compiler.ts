@@ -112,6 +112,7 @@ import { DropTriggerNode } from '../operation-node/drop-trigger-node.js'
 import { TriggerEventNode } from '../operation-node/trigger-event-node.js'
 import { TriggerOrderNode } from '../operation-node/trigger-order-node.js'
 import { CastNode } from '../operation-node/cast-node.js'
+import { FetchNode } from '../operation-node/fetch-node.js'
 
 export class DefaultQueryCompiler
   extends OperationNodeVisitor
@@ -224,6 +225,11 @@ export class DefaultQueryCompiler
     if (node.offset) {
       this.append(' ')
       this.visitNode(node.offset)
+    }
+
+    if (node.fetch) {
+      this.append(' ')
+      this.visitNode(node.fetch)
     }
 
     if (node.endModifiers?.length) {
@@ -1606,6 +1612,12 @@ export class DefaultQueryCompiler
     this.append(' as ')
     this.visitNode(node.dataType)
     this.append(')')
+  }
+  
+  protected override visitFetch(node: FetchNode): void {
+    this.append('fetch next ')
+    this.visitNode(node.rowCount)
+    this.append(` rows ${node.modifier}`)
   }
 
   protected append(str: string): void {

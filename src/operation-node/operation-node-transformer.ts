@@ -95,6 +95,7 @@ import { DropTriggerNode } from './drop-trigger-node.js'
 import { TriggerEventNode } from './trigger-event-node.js'
 import { TriggerOrderNode } from './trigger-order-node.js'
 import { CastNode } from './cast-node.js'
+import { FetchNode } from './fetch-node.js'
 
 /**
  * Transforms an operation node tree into another one.
@@ -224,6 +225,7 @@ export class OperationNodeTransformer {
     TriggerOrderNode: this.transformTriggerOrder.bind(this),
     DropTriggerNode: this.transformDropTrigger.bind(this),
     CastNode: this.transformCast.bind(this),
+    FetchNode: this.transformFetch.bind(this),
   })
 
   transformNode<T extends OperationNode | undefined>(node: T): T {
@@ -270,6 +272,7 @@ export class OperationNodeTransformer {
       having: this.transformNode(node.having),
       explain: this.transformNode(node.explain),
       setOperations: this.transformNodeList(node.setOperations),
+      fetch: this.transformNode(node.fetch),
     })
   }
 
@@ -1075,6 +1078,14 @@ export class OperationNodeTransformer {
       kind: 'CastNode',
       expression: this.transformNode(node.expression),
       dataType: this.transformNode(node.dataType),
+    })
+  }
+
+  protected transformFetch(node: FetchNode): FetchNode {
+    return requireAllProps<FetchNode>({
+      kind: 'FetchNode',
+      rowCount: this.transformNode(node.rowCount),
+      modifier: node.modifier,
     })
   }
 
