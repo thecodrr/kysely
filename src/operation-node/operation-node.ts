@@ -94,6 +94,7 @@ export type OperationNodeKind =
   | 'DropTriggerNode'
   | 'CastNode'
   | 'FetchNode'
+  | 'TopNode'
 
 export interface OperationNode {
   readonly kind: OperationNodeKind

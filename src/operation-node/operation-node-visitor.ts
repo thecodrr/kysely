@@ -98,6 +98,7 @@ import { TriggerEventNode } from './trigger-event-node.js'
 import { TriggerOrderNode } from './trigger-order-node.js'
 import { CastNode } from './cast-node.js'
 import { FetchNode } from './fetch-node.js'
+import { TopNode } from './top-node.js'
 
 export abstract class OperationNodeVisitor {
   protected readonly nodeStack: OperationNode[] = []
@@ -203,6 +204,7 @@ export abstract class OperationNodeVisitor {
     DropTriggerNode: this.visitDropTrigger.bind(this),
     CastNode: this.visitCast.bind(this),
     FetchNode: this.visitFetch.bind(this),
+    TopNode: this.visitTop.bind(this),
   })
 
   protected readonly visitNode = (node: OperationNode): void => {
@@ -316,4 +318,5 @@ export abstract class OperationNodeVisitor {
   protected abstract visitAddIndex(node: AddIndexNode): void
   protected abstract visitCast(node: CastNode): void
   protected abstract visitFetch(node: FetchNode): void
+  protected abstract visitTop(node: TopNode): void
 }
