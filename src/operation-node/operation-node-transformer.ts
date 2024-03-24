@@ -97,6 +97,7 @@ import { TriggerOrderNode } from './trigger-order-node.js'
 import { CastNode } from './cast-node.js'
 import { FetchNode } from './fetch-node.js'
 import { TopNode } from './top-node.js'
+import { OutputNode } from './output-node.js'
 
 /**
  * Transforms an operation node tree into another one.
@@ -228,6 +229,7 @@ export class OperationNodeTransformer {
     CastNode: this.transformCast.bind(this),
     FetchNode: this.transformFetch.bind(this),
     TopNode: this.transformTop.bind(this),
+    OutputNode: this.transformOutput.bind(this),
   })
 
   transformNode<T extends OperationNode | undefined>(node: T): T {
@@ -392,6 +394,7 @@ export class OperationNodeTransformer {
       explain: this.transformNode(node.explain),
       defaultValues: node.defaultValues,
       top: this.transformNode(node.top),
+      output: this.transformNode(node.output),
     })
   }
 
@@ -415,6 +418,7 @@ export class OperationNodeTransformer {
       limit: this.transformNode(node.limit),
       explain: this.transformNode(node.explain),
       top: this.transformNode(node.top),
+      output: this.transformNode(node.output),
     })
   }
 
@@ -565,6 +569,7 @@ export class OperationNodeTransformer {
       explain: this.transformNode(node.explain),
       limit: this.transformNode(node.limit),
       top: this.transformNode(node.top),
+      output: this.transformNode(node.output),
     })
   }
 
@@ -1059,6 +1064,7 @@ export class OperationNodeTransformer {
       whens: this.transformNodeList(node.whens),
       with: this.transformNode(node.with),
       top: this.transformNode(node.top),
+      output: this.transformNode(node.output),
     })
   }
 
@@ -1102,6 +1108,13 @@ export class OperationNodeTransformer {
       kind: 'TopNode',
       expression: node.expression,
       modifiers: node.modifiers,
+    })
+  }
+
+  protected transformOutput(node: OutputNode): OutputNode {
+    return requireAllProps<OutputNode>({
+      kind: 'OutputNode',
+      selections: this.transformNodeList(node.selections),
     })
   }
 
