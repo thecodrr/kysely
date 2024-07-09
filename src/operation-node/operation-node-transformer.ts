@@ -388,6 +388,7 @@ export class OperationNodeTransformer {
       returning: this.transformNode(node.returning),
       onConflict: this.transformNode(node.onConflict),
       onDuplicateKey: this.transformNode(node.onDuplicateKey),
+      endModifiers: this.transformNodeList(node.endModifiers),
       with: this.transformNode(node.with),
       ignore: node.ignore,
       replace: node.replace,
@@ -413,6 +414,7 @@ export class OperationNodeTransformer {
       joins: this.transformNodeList(node.joins),
       where: this.transformNode(node.where),
       returning: this.transformNode(node.returning),
+      endModifiers: this.transformNodeList(node.endModifiers),
       with: this.transformNode(node.with),
       orderBy: this.transformNode(node.orderBy),
       limit: this.transformNode(node.limit),
@@ -565,6 +567,7 @@ export class OperationNodeTransformer {
       where: this.transformNode(node.where),
       updates: this.transformNodeList(node.updates),
       returning: this.transformNode(node.returning),
+      endModifiers: this.transformNodeList(node.endModifiers),
       with: this.transformNode(node.with),
       explain: this.transformNode(node.explain),
       limit: this.transformNode(node.limit),
@@ -1064,6 +1067,7 @@ export class OperationNodeTransformer {
       whens: this.transformNodeList(node.whens),
       with: this.transformNode(node.with),
       top: this.transformNode(node.top),
+      endModifiers: this.transformNodeList(node.endModifiers),
       output: this.transformNode(node.output),
     })
   }

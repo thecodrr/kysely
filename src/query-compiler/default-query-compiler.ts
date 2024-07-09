@@ -367,6 +367,11 @@ export class DefaultQueryCompiler
     if (isSubQuery && !MergeQueryNode.is(rootQueryNode)) {
       this.append(')')
     }
+
+    if (node.endModifiers?.length) {
+      this.append(' ')
+      this.compileList(node.endModifiers, ' ')
+    }
   }
 
   protected override visitValues(node: ValuesNode): void {
@@ -437,6 +442,11 @@ export class DefaultQueryCompiler
 
     if (isSubQuery) {
       this.append(')')
+    }
+
+    if (node.endModifiers?.length) {
+      this.append(' ')
+      this.compileList(node.endModifiers, ' ')
     }
   }
 
@@ -900,6 +910,11 @@ export class DefaultQueryCompiler
 
     if (isSubQuery && !MergeQueryNode.is(rootQueryNode)) {
       this.append(')')
+    }
+
+    if (node.endModifiers?.length) {
+      this.append(' ')
+      this.compileList(node.endModifiers, ' ')
     }
   }
 
@@ -1623,6 +1638,11 @@ export class DefaultQueryCompiler
     if (node.output) {
       this.append(' ')
       this.visitNode(node.output)
+    }
+
+    if (node.endModifiers?.length) {
+      this.append(' ')
+      this.compileList(node.endModifiers, ' ')
     }
   }
 
