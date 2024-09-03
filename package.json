@@ -39,12 +39,12 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf dist & rm -rf test/node/dist & rm -rf test/browser/bundle.js & rm -rf helpers",
+    "clean": "rimraf dist & rimraf test/node/dist & rimraf test/browser/bundle.js & rimraf helpers",
     "test": "npm run build && npm run test:node:build && npm run test:node:run && npm run test:typings && npm run test:esmimports && npm run test:exports",
     "test:node:build": "tsc -p test/node",
     "test:node": "npm run build && npm run test:node:build && npm run test:node:run",
     "test:node:run": "mocha --timeout 15000 test/node/dist/**/*.test.js",
-    "test:browser:build": "rm -rf test/browser/bundle.js && esbuild test/browser/main.ts --bundle --outfile=test/browser/bundle.js",
+    "test:browser:build": "rimraf test/browser/bundle.js && esbuild test/browser/main.ts --bundle --outfile=test/browser/bundle.js",
     "test:browser": "npm run build && npm run test:browser:build && node test/browser/test.js",
     "test:bun": "npm run build && bun link && cd test/bun && bun install && bun run test",
     "test:cloudflare-workers": "npm run build && cd test/cloudflare-workers && npm ci && npm test",
@@ -92,6 +92,7 @@
     "pg-cursor": "^2.11.0",
     "playwright": "^1.46.1",
     "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
     "sinon": "^18.0.0",
     "tarn": "^3.0.2",
     "tedious": "^19.0.0",
