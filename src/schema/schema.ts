@@ -35,7 +35,7 @@ import { DropTriggerBuilder } from './drop-trigger-builder.js'
 /**
  * Provides methods for building database schema.
  */
-export class SchemaModule<DB> {
+export class SchemaModule<DB = any> {
   readonly #executor: QueryExecutor
 
   constructor(executor: QueryExecutor) {
